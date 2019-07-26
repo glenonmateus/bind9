@@ -1,6 +1,5 @@
 FROM debian:buster
 
-# ENV BIND9_VERSION 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
@@ -9,4 +8,4 @@ RUN apt-get update && \
 
 VOLUME ["/etc/bind/", "/var/cache/bind"]
 
-CMD ["bash"] 
+CMD ["bash"]
