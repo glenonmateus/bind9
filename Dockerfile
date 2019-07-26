@@ -8,4 +8,6 @@ RUN apt-get update && \
 
 VOLUME ["/etc/bind/", "/var/cache/bind"]
 
-CMD ["bash"]
+EXPOSE 53/udp
+
+CMD ["named", "-g"]
