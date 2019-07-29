@@ -13,4 +13,4 @@ VOLUME ["/etc/bind/", "/var/cache/bind", "/run/named/"]
 
 EXPOSE 53/udp
 
-CMD ["named", "-g", "-u", "bind", "-c", "/etc/bind/named.conf"] 
+ENTRYPOINT ["named", "-g", "-u", "bind", "-c", "/etc/bind/named.conf"]
