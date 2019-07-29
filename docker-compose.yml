@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+
+  bind9:
+    image: glenonmateus/bind9
+    hostname: bind9
+    ports:
+    - 53:53/udp
+    volumes:
+    - bind9_conf:/etc/bind/
+    - bind9_named:/var/lib/named/
+
+volumes:
+  bind9_conf:
+  bind9_named:
