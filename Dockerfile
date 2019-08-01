@@ -9,8 +9,12 @@ RUN apt-get update && \
     mkdir /run/named && \
     chown -R bind: /run/named
 
-VOLUME ["/etc/bind/", "/var/cache/bind", "/run/named/"]
+COPY rndc.key /etc/bind/
+COPY run /usr/local/bin/
+RUN chmod +x /usr/local/bin/run
+
+VOLUME ["/etc/bind/", "/var/cache/bind/", "/run/named/"]
 
 EXPOSE 53/udp
 
-ENTRYPOINT ["named", "-g", "-u", "bind", "-c", "/etc/bind/named.conf"]
+ENTRYPOINT ["/usr/local/bin/run"]

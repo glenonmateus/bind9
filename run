@@ -1,0 +1,20 @@
+#!/bin/bash
+: ${BIND_RNDCKEY:="rndckey"}
+
+CONFIGS_VARS=(
+  BIND_RNDCKEY
+)
+
+echo -n "==> Setting config vars ... "
+for c in ${CONFIGS_VARS[@]}
+do
+  sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
+done
+echo "Done"
+
+echo "==> Checking configuration ... "
+named-checkconf /etc/bind/named.conf
+echo "==> Done"
+
+echo "==> Starting bind9"
+named -g -u bind -c /etc/bind/named.conf
