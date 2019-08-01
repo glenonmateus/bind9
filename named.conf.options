@@ -4,7 +4,4 @@ options {
 	listen-on-v6 { any; };
 	allow-query { any; };
 	version none;
-  default-key "rndc-key";
-	default-server 127.0.0.1;
-	default-port 953;
 };

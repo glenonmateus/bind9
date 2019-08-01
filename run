@@ -1,5 +1,9 @@
 #!/bin/bash
-: ${BIND_RNDCKEY:="rndckey"}
+
+# creating secret rndc.key
+# openssl rand -base64 15
+
+: ${BIND_RNDCKEY:="D9yVnKTEXtrdHA=="}
 
 CONFIGS_VARS=(
   BIND_RNDCKEY
@@ -11,10 +15,6 @@ do
   sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
 done
 echo "Done"
-
-echo "==> Checking configuration ... "
-named-checkconf /etc/bind/named.conf
-echo "==> Done"
 
 echo "==> Starting bind9"
 named -g -u bind -c /etc/bind/named.conf

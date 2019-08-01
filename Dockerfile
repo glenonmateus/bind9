@@ -9,9 +9,13 @@ RUN apt-get update && \
     mkdir /run/named && \
     chown -R bind: /run/named
 
-COPY rndc.key /etc/bind/
+COPY ["rndc.key", "/etc/bind/"]
+COPY ["named.conf.options", "/etc/bind/"]
+RUN chown bind: /etc/bind/rndc.key && \
+    chown root:bind /etc/bind/named.conf*
+
 COPY run /usr/local/bin/
-RUN chmod +x /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run 
 
 VOLUME ["/etc/bind/", "/var/cache/bind/", "/run/named/"]
 
