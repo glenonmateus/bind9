@@ -1,7 +1,7 @@
 options {
-	directory "/var/cache/bind";
-	dnssec-validation auto;
-	listen-on-v6 { any; };
-	allow-query { any; };
-	version none;
+  directory "@@BIND_DIRECTORY@@";
+  dnssec-validation @@BIND_DNSSECVALIDATION@@;
+  dnssec-enable @@BIND_DNSSECENABLE@@;
+  version @@BIND_VERSION@@;
+  listen-on port @@BIND_LISTENONPORT@@;
 };
