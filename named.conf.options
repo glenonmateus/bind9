@@ -1,19 +1,24 @@
 options {
   directory "@@BIND_DIRECTORY@@";
+  multi-master @@BIND_MULTIMASTER@@;
   dnssec-validation @@BIND_DNSSECVALIDATION@@;
   dnssec-enable @@BIND_DNSSECENABLE@@;
+  dnssec-accept-expired @@BIND_DNSSECACCEPTEXPIRED@@;
   version @@BIND_VERSION@@;
   listen-on port @@BIND_LISTENONPORT@@ { @@BIND_LISTENON@@; };
   listen-on-v6 port @@BIND_LISTENONPORTV6@@ { @@BIND_LISTENONV6@@; };
-  automatic-interface-scan @@BIND_AUTOINTERFACESCAN@@;
+  automatic-interface-scan @@BIND_AUTOMATICINTERFACESCAN@@;
   allow-new-zones @@BIND_ALLOWNEWZONES@@;
   flush-zones-on-shutdown @@BIND_FLUSHZONESONSHUTDOWN@@;
-  geoip-user-ecs @@BIND_GEOIPUSERECS@@;
+  geoip-use-ecs @@BIND_GEOIPUSEECS@@;
   root-key-sentinel @@BIND_ROOTKEYSENTINEL@@;
   message-compression @@BIND_MESSAGECOMPRESSION@@;
   minimal-responses @@BIND_MINIMALRESPONSES@@;
   minimal-any @@BIND_MINIMALANY@@;
   notify @@BIND_NOTIFY@@;
   recursion @@BIND_RECURSION@@;
-  resquest-nsid @@BIND_RESQUESTNSID@@;
+  request-nsid @@BIND_REQUESTNSID@@;
+  answer-cookie @@BIND_ANSWERCOOKIE@@;
+  nocookie-udp-size @@BIND_NOCOOKIEUDPSIZE@@;
+  cookie-algorithm @@BIND_COOKIEALGORITHM@@;
 };
