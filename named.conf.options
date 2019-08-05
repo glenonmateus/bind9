@@ -5,4 +5,15 @@ options {
   version @@BIND_VERSION@@;
   listen-on port @@BIND_LISTENONPORT@@ { @@BIND_LISTENON@@; };
   listen-on-v6 port @@BIND_LISTENONPORTV6@@ { @@BIND_LISTENONV6@@; };
+  automatic-interface-scan @@BIND_AUTOINTERFACESCAN@@;
+  allow-new-zones @@BIND_ALLOWNEWZONES@@;
+  flush-zones-on-shutdown @@BIND_FLUSHZONESONSHUTDOWN@@;
+  geoip-user-ecs @@BIND_GEOIPUSERECS@@;
+  root-key-sentinel @@BIND_ROOTKEYSENTINEL@@;
+  message-compression @@BIND_MESSAGECOMPRESSION@@;
+  minimal-responses @@BIND_MINIMALRESPONSES@@;
+  minimal-any @@BIND_MINIMALANY@@;
+  notify @@BIND_NOTIFY@@;
+  recursion @@BIND_RECURSION@@;
+  resquest-nsid @@BIND_RESQUESTNSID@@;
 };
