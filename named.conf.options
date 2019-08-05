@@ -3,5 +3,6 @@ options {
   dnssec-validation @@BIND_DNSSECVALIDATION@@;
   dnssec-enable @@BIND_DNSSECENABLE@@;
   version @@BIND_VERSION@@;
-  listen-on port @@BIND_LISTENONPORT@@;
+  listen-on port @@BIND_LISTENONPORT@@ { @@BIND_LISTENON@@; };
+  listen-on-v6 port @@BIND_LISTENONPORTV6@@ { @@BIND_LISTENONV6@@; };
 };
