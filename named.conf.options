@@ -56,4 +56,6 @@ options {
   dnssec-dnskey-kskonly @@BIND_DNSSECDNSKEYKSKONLY@@;
   try-tcp-refresh @@BIND_TRYTCPREFRESH@@;
   dnssec-secure-to-insecure @@BIND_DNSSECSECURETOINSECURE@@;
+  forward @@BIND_FORWARD@@;
+  forwarders { @@BIND_FORWARDERS@@ };
 };
