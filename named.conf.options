@@ -58,4 +58,5 @@ options {
   dnssec-secure-to-insecure @@BIND_DNSSECSECURETOINSECURE@@;
   forward @@BIND_FORWARD@@;
   forwarders { @@BIND_FORWARDERS@@ };
+  allow-notify { @@BIND_ALLOWNOTIFY@@ };
 };
