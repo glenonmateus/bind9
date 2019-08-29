@@ -1,5 +1,5 @@
 FROM debian:buster
-LABEL mainte
+LABEL maintainer="Glenon Mateus <glenonmateus@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ America/Sao_Paulo
