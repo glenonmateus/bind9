@@ -13,7 +13,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-
+      replicas: 1
 volumes:
   bind9_conf:
   bind9_named:
