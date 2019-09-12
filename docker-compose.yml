@@ -9,6 +9,9 @@ services:
       restart_policy:
         condition: on-failure
       replicas: 1
+    environment:
+      - BIND_SENDCOOKIE=no
+      - BIND_QUERYLOG=yes
     ports:
     - 53:53/udp
     volumes:

@@ -16,11 +16,10 @@ COPY ["named.conf.options", "/etc/bind/"]
 RUN chown bind: /etc/bind/rndc.key && \
     chown root:bind /etc/bind/named.conf*
 
-COPY docker-entrypoint .
-RUN chmod +x docker-entrypoint
-
 VOLUME ["/etc/bind/", "/var/cache/bind/", "/run/named/"]
 
 EXPOSE 53/udp
 
+COPY docker-entrypoint .
+RUN chmod +x docker-entrypoint
 ENTRYPOINT ["/docker-entrypoint"]

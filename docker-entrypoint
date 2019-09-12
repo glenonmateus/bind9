@@ -235,7 +235,5 @@ do
 done
 echo "Done"
 
-cat /etc/bind/named.conf.options
-
 echo "==> Starting bind9"
 named -g -u bind -c /etc/bind/named.conf
