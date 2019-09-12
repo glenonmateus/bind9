@@ -46,11 +46,8 @@ options {
   automatic-interface-scan @@BIND_AUTOMATICINTERFACESCAN@@;
   allow-new-zones @@BIND_ALLOWNEWZONES@@;
   auth-nxdomain @@BIND_AUTHNXDOMAIN@@;
-  deallocate-on-exit @@BIND_DEALLOCATEONEXIT@@;
   memstatistics @@BIND_MEMSTATISTICS@@;
   dialup @@BIND_DIALUP@@;
-  fake-iquery @@BIND_FAKEIQUERY@@;
-  fetch-glue @@BIND_FETCHGLUE@@;
   flush-zones-on-shutdown @@BIND_FLUSHZONESONSHUTDOWN@@;
   geoip-use-ecs @@BIND_GEOIPUSEECS@@;
   root-key-sentinel @@BIND_ROOTKEYSENTINEL@@;
