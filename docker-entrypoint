@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # creating secret rndc.key
 # openssl rand -base64 15
@@ -232,8 +232,11 @@ CONFIGS_VARS=(
 echo -n "==> Setting config vars ... "
 for c in ${CONFIGS_VARS[@]}
 do
-  sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
-  sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/named.conf.options
+  if [ ! -z "${c}" ]; then
+    sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
+    sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/named.conf.options
+  elif
+    sed -i ",@@${c}@@,d"
 done
 echo "Done"
 
