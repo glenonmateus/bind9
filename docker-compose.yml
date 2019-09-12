@@ -5,15 +5,16 @@ services:
   bind9:
     image: glenonmateus/bind9
     hostname: bind9
+    deploy:
+      restart_policy:
+        condition: on-failure
+      replicas: 1
     ports:
     - 53:53/udp
     volumes:
     - bind9_conf:/etc/bind/
     - bind9_named:/var/cache/bind/
-    deploy:
-      restart_policy:
-        condition: on-failure
-      replicas: 1
+
 volumes:
   bind9_conf:
   bind9_named:

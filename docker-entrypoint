@@ -53,11 +53,8 @@
 : ${BIND_AUTOMATICINTERFACESCAN:="yes"}
 : ${BIND_ALLOWNEWZONES:="no"}
 : ${BIND_AUTHNXDOMAIN:="no"}
-: ${BIND_DEALLOCATEONEXIT:="yes"}
 : ${BIND_MEMSTATISTICS:="no"}
 : ${BIND_DIALUP:="no"}
-: ${BIND_FAKEIQUERY:="no"}
-: ${BIND_FETCHGLUE:="no"}
 : ${BIND_FLUSHZONESONSHUTDOWN:="no"}
 : ${BIND_GEOIPUSEECS:="yes"}
 : ${BIND_ROOTKEYSENTINEL:="yes"}
@@ -166,11 +163,8 @@ CONFIGS_VARS=(
   BIND_AUTOMATICINTERFACESCAN
   BIND_ALLOWNEWZONES
   BIND_AUTHNXDOMAIN
-  BIND_DEALLOCATEONEXIT
   BIND_MEMSTATISTICS
   BIND_DIALUP
-  BIND_FAKEIQUERY
-  BIND_FETCHGLUE
   BIND_FLUSHZONESONSHUTDOWN
   BIND_GEOIPUSEECS
   BIND_ROOTKEYSENTINEL
@@ -229,16 +223,19 @@ CONFIGS_VARS=(
   BIND_VERSION
 )
 
-echo -n "==> Setting config vars ... "
+echo -n "==> Setting configurations vars ... "
 for c in ${CONFIGS_VARS[@]}
 do
-  if [ ! -z "${c}" ]; then
+  if [[ $(eval echo \$${c}) ]]; then
     sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
     sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/named.conf.options
-  elif
-    sed -i ",@@${c}@@,d"
+  else
+    sed -i "/${c}/d" /etc/bind/named.conf.options
+  fi
 done
 echo "Done"
+
+cat /etc/bind/named.conf.options
 
 echo "==> Starting bind9"
 named -g -u bind -c /etc/bind/named.conf
