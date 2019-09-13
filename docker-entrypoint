@@ -108,10 +108,8 @@
 : ${BIND_FORWARD:=""}
 : ${BIND_FORWARDERS:=""}
 # Interfaces
-: ${BIND_LISTENONPORT:="53"}
-: ${BIND_LISTENON:="any"}
-: ${BIND_LISTENONPORTV6:="53"}
-: ${BIND_LISTENONV6:="none"}
+: ${BIND_LISTENONPORT:="53 { any; }"}
+: ${BIND_LISTENONPORTV6:="53 { none; }"}
 : ${BIND_VERSION:="none"}
 
 CONFIGS_VARS=(
@@ -217,23 +215,25 @@ CONFIGS_VARS=(
   BIND_FORWARD
   BIND_FORWARDERS
   BIND_LISTENONPORT
-  BIND_LISTENON
   BIND_LISTENONPORTV6
-  BIND_LISTENONV6
   BIND_VERSION
 )
+#sed -i "s,${c},$(eval echo \$${c})," /etc/bind/rndc.key
 
-echo -n "==> Setting configurations vars ... "
+OPTIONS=/etc/bind/named.conf.options
+echo -n "==> Setting configurations options ... "
+echo "options {" > $OPTIONS
 for c in ${CONFIGS_VARS[@]}
 do
   if [[ $(eval echo \$${c}) ]]; then
-    sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/rndc.key
-    sed -i "s,@@${c}@@,$(eval echo \$${c})," /etc/bind/named.conf.options
-  else
-    sed -i "/${c}/d" /etc/bind/named.conf.options
+    grep -w ${c} options >> $OPTIONS
+    sed -i "s,${c},$(eval echo \$${c})," $OPTIONS
   fi
 done
+echo "};" >> $OPTIONS
 echo "Done"
+
+cat $OPTIONS
 
 echo "==> Starting bind9"
 named -g -u bind -c /etc/bind/named.conf
