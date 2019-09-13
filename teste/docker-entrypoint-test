@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+: ${BIND_LISTENONPORT:="53 { any; }"}
+: ${BIND_LISTENONPORTV6:="53 { none; }"}
+
+CONFIGS_VARS=(
+  BIND_LISTENONPORT
+  BIND_LISTENONPORTV6
+)
+
+echo -n "==> Setting configurations options ... "
+echo "options {" > named.conf.options
+for c in ${CONFIGS_VARS[@]}
+do
+  if [[ $(eval echo \$${c}) ]]; then
+    grep -w ${c} options >> named.conf.options
+    #grep -w ${c} options | xargs -I '{}' sed -i '$i{}' named.conf.options
+    sed -i "s,${c},$(eval echo \$${c})," named.conf.options
+  fi
+done
+echo "};" >> named.conf.options
+echo "Done"
