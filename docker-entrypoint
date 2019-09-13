@@ -4,7 +4,7 @@
 # openssl rand -base64 15
 
 : ${BIND_RNDCKEY:="D9yVnKTEXtrdHA=="}
-# options Statement Definition and Usage
+# Options Statement Definition and Usage
 : ${BIND_ATTACHCACHE:=""}
 : ${BIND_DIRECTORY:="/var/cache/bind/"}
 : ${BIND_DNSTAP:=""}
@@ -220,20 +220,18 @@ CONFIGS_VARS=(
 )
 #sed -i "s,${c},$(eval echo \$${c})," /etc/bind/rndc.key
 
-OPTIONS=/etc/bind/named.conf.options
+OPTIONSFILE=/etc/bind/named.conf.options
 echo -n "==> Setting configurations options ... "
-echo "options {" > $OPTIONS
+echo "options {" > $OPTIONSFILE
 for c in ${CONFIGS_VARS[@]}
 do
   if [[ $(eval echo \$${c}) ]]; then
-    grep -w ${c} options >> $OPTIONS
-    sed -i "s,${c},$(eval echo \$${c})," $OPTIONS
+    grep -w ${c} options >> $OPTIONSFILE
+    sed -i "s,${c},$(eval echo \$${c})," $OPTIONSFILE
   fi
 done
-echo "};" >> $OPTIONS
+echo "};" >> $OPTIONSFILE
 echo "Done"
-
-cat $OPTIONS
 
 echo "==> Starting bind9"
 named -g -u bind -c /etc/bind/named.conf
