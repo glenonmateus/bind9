@@ -13,6 +13,7 @@ RUN apt-get update && \
 
 COPY ["rndc.key", "/etc/bind/"]
 COPY ["named.conf.options", "/etc/bind/"]
+COPY ["options", "."]
 RUN chown bind: /etc/bind/rndc.key && \
     chown root:bind /etc/bind/named.conf*
 
