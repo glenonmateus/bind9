@@ -10,6 +10,7 @@ services:
         condition: on-failure
       replicas: 1
     environment:
+      #      - BIND_DIRECTORY="/var/lib/named/"
       - BIND_SENDCOOKIE=no
       - BIND_QUERYLOG=yes
     ports:

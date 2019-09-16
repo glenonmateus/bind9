@@ -1,4 +1,6 @@
 options {
 listen-on port 53 { any; };
 listen-on-v6 port 53 { none; };
+version none;
+directory "/var/lib/named/";
 };

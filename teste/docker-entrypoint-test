@@ -1,22 +1,49 @@
 #!/usr/bin/env bash
 
+set -x
+
 : ${BIND_LISTENONPORT:="53 { any; }"}
 : ${BIND_LISTENONPORTV6:="53 { none; }"}
+: ${BIND_VERSION:="none"}
+: ${BIND_DIRECTORY:="/var/lib/named/"}
 
 CONFIGS_VARS=(
   BIND_LISTENONPORT
   BIND_LISTENONPORTV6
+  BIND_VERSION
+  BIND_DIRECTORY
 )
 
-echo -n "==> Setting configurations options ... "
-echo "options {" > named.conf.options
+OPTIONSFILE=named.conf.options
+echo "==> Setting configurations options ... "
 for c in ${CONFIGS_VARS[@]}
 do
-  if [[ $(eval echo \$${c}) ]]; then
-    grep -w ${c} options >> named.conf.options
-    #grep -w ${c} options | xargs -I '{}' sed -i '$i{}' named.conf.options
-    sed -i "s,${c},$(eval echo \$${c})," named.conf.options
+  VAR1="$(eval echo \$${c})"
+  VAR2="$(grep -w ${c} options | cut -d' ' -f1 | xargs -I '{}' grep -m1 -w '{}' $OPTIONSFILE)"
+  if [ ! -z "$VAR1" -a ! -z "$VAR2" ]; then
+    VAR3="$(grep -w ${c} options)"
+    sed -i "s@$VAR2@$VAR3@g" $OPTIONSFILE
+    sed -i "s@${c}@$(eval echo \$${c})@" $OPTIONSFILE
+  elif [ ! -z "$VAR1" -a -z "$VAR2" ]; then
+    grep -w ${c} options | xargs -I '{}' sed -i '$i{}' $OPTIONSFILE
+    sed -i "s@${c}@$(eval echo \$${c})@" $OPTIONSFILE
   fi
 done
-echo "};" >> named.conf.options
 echo "Done"
+
+set +x
+
+#grep -w ${c} options >> $OPTIONSFILE
+#sed -i "s,${c},$(eval echo \$${c})," $OPTIONSFILE
+#echo -n "==> Setting configurations options ... "
+#echo "options {" > named.conf.options
+#for c in ${CONFIGS_VARS[@]}
+#do
+#  if [[ $(eval echo \$${c}) ]]; then
+#    grep -w ${c} options >> named.conf.options
+    #grep -w ${c} options | xargs -I '{}' sed -i '$i{}' named.conf.options
+#    sed -i "s,${c},$(eval echo \$${c})," named.conf.options
+#  fi
+#done
+#echo "};" >> named.conf.options
+#echo "Done"
