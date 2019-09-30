@@ -10,14 +10,14 @@ services:
         condition: on-failure
       replicas: 1
     environment:
-      #      - BIND_DIRECTORY="/var/lib/named/"
+      #- BIND_DIRECTORY="/var/lib/named/"
       - BIND_SENDCOOKIE=no
       - BIND_QUERYLOG=yes
     ports:
-    - 53:53/udp
+      - 53:53/udp
     volumes:
-    - bind9_conf:/etc/bind/
-    - bind9_named:/var/cache/bind/
+      - bind9_conf:/etc/bind/
+      - bind9_named:/var/cache/bind/
 
 volumes:
   bind9_conf:
